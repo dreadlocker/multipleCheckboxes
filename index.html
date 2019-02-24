@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Multiple checkboxes</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js"></script>
   </head>
 
   <body>
@@ -47,61 +49,5 @@
         <p>Item 9</p>
       </div>
     </div>
-
-    <script>
-      const allCheckboxesNL = document.querySelectorAll('[type="checkbox"]');
-
-      // scratch the text of a element
-      const scratchText = (parent, txtDecor) => parent.style.textDecoration = txtDecor;
-      
-      let lastChecked;
-      function handleCheck(e) {
-        e.stopPropagation(); // stop event bubbling
-
-        e.target.checked ? scratchText(e.target.parentElement, "line-through") : scratchText(e.target.parentElement, "none");
-
-        let isBetween = false;
-        if (e.shiftKey) {
-          allCheckboxesNL.forEach(checkbox => {
-            // check if this checkbox is between the two clicked checkboxes ...
-            if (checkbox === this || checkbox == lastChecked) isBetween = !isBetween;
-            // ... if it is between them, check them and scratch the text
-            if (isBetween) checkbox.checked = true && scratchText(checkbox.parentElement, "line-through");
-          });
-        }
-
-        lastChecked = this;
-      }
-
-      allCheckboxesNL.forEach(checkbox => checkbox.addEventListener("click", handleCheck));
-    </script>
-
-    <style>
-      body,
-      html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-      }
-
-      h1 {
-        text-align: center;
-      }
-
-      #wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 1em;
-      }
-
-      div {
-        display: flex;
-      }
-
-      p {
-        margin: 0;
-      }
-    </style>
   </body>
 </html>
